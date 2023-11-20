@@ -1,0 +1,27 @@
+{
+    "name": "PHP Development",
+    "dockerComposeFile": [
+        "../docker-compose.yml"
+    ],
+    "service": "php",
+    "workspaceFolder": "/var/www/html",
+    "settings": {
+        "[php]": {
+            "editor.formatOnSave": true
+        },
+        "search.exclude": {
+            "**/vendor/*/**": true
+        }
+    },
+    "extensions": [
+        "mhutchie.git-graph",
+        "eamodio.gitlens",
+        "emilast.LogFileHighlighter",
+        "neilbrayfield.php-docblocker",
+        "bmewburn.vscode-intelephense-clie",
+        "felixfbecker.php-debug",
+        "felixfbecker.php-intellisense",
+        "xdebug.php-debug",
+        "streetsidesoftware.code-spell-checker",
+    ]
+}
