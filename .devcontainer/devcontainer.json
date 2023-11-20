@@ -1,18 +1,26 @@
 {
+    //VSCode内で表示されるコンテナ名
     "name": "PHP Development",
+    //使用するDockerfileのパス
     "dockerComposeFile": [
         "../docker-compose.yml"
     ],
+    //コンテナ内で使用するサービス名
     "service": "php",
+    //コンテナ内での作業ディレクトリを指定
     "workspaceFolder": "/var/www/html",
+    //VSCodeの設定
     "settings": {
+        //自動フォーマット
         "[php]": {
             "editor.formatOnSave": true
         },
+        //検索から除外するファイルやフォルダ
         "search.exclude": {
             "**/vendor/*/**": true
         }
     },
+    //インストールを行うVSCodeの拡張機能
     "extensions": [
         "mhutchie.git-graph",
         "eamodio.gitlens",

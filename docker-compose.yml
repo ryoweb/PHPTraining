@@ -1,40 +1,40 @@
 version: '3'
 services:
   php:
-    container_name: php
-    build:
-      context: .
-      dockerfile: ./.docker/php/Dockerfile
-    volumes:
-      - ./:/var/www/html
-      - ./.docker/php/apache/:/etc/apache2/sites-enabled/
-      - ./.docker/php/php/xdebug.ini:/usr/local/etc/php/conf.d/xdebug.ini
-    ports:
-      - 8080:80
-    command: ["sh", "-c", "composer install;apache2-foreground"]
-    depends_on:
-      - mysql
+    container_name: php # コンテナ名
+    build: # Dockerfileの場所を指定
+      context: . # Dockerfileの場所
+      dockerfile: ./.docker/php/Dockerfile # Dockerfileのファイル名
+    volumes: # ホスト側のディレクトリをコンテナ側にマウント
+      - ./:/var/www/html # ホスト側のディレクトリ:コンテナ側のディレクトリ
+      - ./.docker/php/apache/:/etc/apache2/sites-enabled/ # ホスト側のディレクトリ:コンテナ側のディレクトリ
+      - ./.docker/php/php/xdebug.ini:/usr/local/etc/php/conf.d/xdebug.ini # ホスト側のディレクトリ:コンテナ側のディレクトリ
+    ports: # ホスト側のポート:コンテナ側のポート
+      - 8080:80 # ホスト側のポート:コンテナ側のポート
+    command: ["sh", "-c", "composer install;apache2-foreground"] # コンテナ起動時に実行するコマンド
+    depends_on: # コンテナ起動時に依存するコンテナを指定
+      - mysql # コンテナ名
     # platform: linux/x86_64
-  mysql:
-    container_name: mysql
-    image: mysql:8.0
-    volumes:
-      - ./.data/mysql:/var/lib/mysql
-    ports:
-      - "3306:3306"
-    environment:
-      MYSQL_ROOT_PASSWORD: rootpw
-      MYSQL_DATABASE: develop
-      MYSQL_USER: develop
-      MYSQL_PASSWORD: p@ssw0rd
-    depends_on:
-      - phpmyadmin
-    platform: linux/x86_64
-  phpmyadmin:
-    container_name: phpmyadmin
-    image: phpmyadmin/phpmyadmin:latest
-    environment:
-      PMA_HOST: 'mysql'
-    ports:
-      - 18080:80
+  mysql: # コンテナ名
+    container_name: mysql # コンテナ名
+    image: mysql:8.0 # イメージ名
+    volumes: # ホスト側のディレクトリをコンテナ側にマウント
+      - ./.data/mysql:/var/lib/mysql # ホスト側のディレクトリ:コンテナ側のディレクトリ
+    ports: # ホスト側のポート:コンテナ側のポート
+      - "3306:3306" # ホスト側のポート:コンテナ側のポート
+    environment: # 環境変数を指定
+      MYSQL_ROOT_PASSWORD: rootpw # DBルートユーザのパスワード
+      MYSQL_DATABASE: develop # データベース名
+      MYSQL_USER: develop # DBユーザ名
+      MYSQL_PASSWORD: p@ssw0rd # DBユーザパスワード
+    depends_on: # コンテナ起動時に依存するコンテナを指定
+      - phpmyadmin # コンテナ名
+    # platform: linux/x86_64 # プラットフォームを指定
+  phpmyadmin: # コンテナ名
+    container_name: phpmyadmin # コンテナ名
+    image: phpmyadmin/phpmyadmin:latest # イメージ名
+    environment: # 環境変数を指定
+      PMA_HOST: 'mysql' #DBサーバのホスト名
+    ports: # ポートフォワーディング ホスト側のポート:コンテナ側のポート
+      - 18080:80 # ホスト側のポート:コンテナ側のポート
     # platform: linux/x86_64
